@@ -1,8 +1,8 @@
-import { IsNotEmpty, IsString, Matches } from "class-validator";
+import { IsNotEmpty, IsString } from "class-validator";
+import { ApiHideProperty } from "@nestjs/swagger";
 
 export class DeleteScheduleDto {
-  @IsString()
-  @IsNotEmpty()
+  @ApiHideProperty()
   userUuid: string;
 
   @IsString()

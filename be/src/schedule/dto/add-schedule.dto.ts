@@ -1,8 +1,8 @@
 import { IsNotEmpty, IsString, Matches } from "class-validator";
+import { ApiHideProperty } from "@nestjs/swagger";
 
 export class AddScheduleDto {
-  @IsString()
-  @IsNotEmpty()
+  @ApiHideProperty()
   userUuid: string;
 
   @IsString()

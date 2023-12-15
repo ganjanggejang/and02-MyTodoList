@@ -1,15 +1,12 @@
-import { IsNotEmpty, IsString, Matches, MaxLength } from "class-validator";
+import { IsNotEmpty, IsString, MaxLength } from "class-validator";
+import { ApiHideProperty } from "@nestjs/swagger";
 
 export class AddCategoryDto {
-  @IsString()
-  @IsNotEmpty()
+  @ApiHideProperty()
   userUuid: string;
 
   @IsString()
   @IsNotEmpty()
   @MaxLength(128)
   categoryName: string;
-
-  @Matches(/^(\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2})$/, { message: "올바른 날짜 및 시간 형식이 아닙니다." })
-  createdAt: string;
 }

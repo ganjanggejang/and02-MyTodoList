@@ -1,18 +1,18 @@
 import { BaseEntity, Column, DeleteDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
-import { ScheduleMetaEntity } from "./schedule-meta.entity";
+import { ScheduleMetadataEntity } from "./schedule-metadata.entity";
 
-@Entity("Schedule")
+@Entity("schedule")
 export class ScheduleEntity extends BaseEntity {
-  @PrimaryGeneratedColumn({ name: "schedule_id" })
+  @PrimaryGeneratedColumn({ name: "id" })
   scheduleId: number;
 
-  @Column({ length: 26, name: "schedule_uuid" })
+  @Column({ length: 26, name: "uuid" })
   scheduleUuid: string;
 
-  @Column({ nullable: true, default: null })
+  @Column({ nullable: true, default: null, name: "start_at" })
   startAt: string;
 
-  @Column()
+  @Column({ name: "end_at" })
   endAt: string;
 
   @Column({ default: false })
@@ -21,8 +21,8 @@ export class ScheduleEntity extends BaseEntity {
   @Column({ default: false })
   failed: boolean;
 
-  @Column({ length: 256, name: "remind_memo", default: null, nullable: true })
-  remindMemo: string;
+  @Column({ length: 256, name: "retrospective_memo", default: null, nullable: true })
+  retrospectiveMemo: string;
 
   @Column({ default: true })
   last: boolean;
@@ -30,12 +30,15 @@ export class ScheduleEntity extends BaseEntity {
   @DeleteDateColumn({ default: null, name: "deleted_at" })
   deletedAt: Date | null;
 
+  @Column({ name: "metadata_id" })
+  metadataId: number;
+
   /*
    * relation
    */
-  @ManyToOne(() => ScheduleMetaEntity, (parent) => parent.metadataId, {
+  @ManyToOne(() => ScheduleMetadataEntity, (parent) => parent.metadataId, {
     onDelete: "CASCADE",
   })
   @JoinColumn({ name: "metadata_id" })
-  parent?: ScheduleMetaEntity;
+  parent?: ScheduleMetadataEntity;
 }
